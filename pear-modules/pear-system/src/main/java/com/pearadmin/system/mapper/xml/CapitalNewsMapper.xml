@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pearadmin.system.mapper.CapitalNewsMapper">
+
+    <resultMap type="com.pearadmin.system.domain.CapitalNews" id="CapitalNewsResult">
+        <result property="id"    column="id"    />
+        <result property="title"    column="title"    />
+        <result property="img"    column="img"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="browseNum"    column="browse_num"    />
+        <result property="content"    column="content"    />
+    </resultMap>
+
+    <sql id="selectCapitalNewsVo">
+        select`id`,`title`,`img`,`create_time`,`browse_num`,`content` from `capital_news`
+    </sql>
+
+    <select id="selectCapitalNewsList" parameterType="com.pearadmin.system.domain.CapitalNews" resultMap="CapitalNewsResult">
+        <include refid="selectCapitalNewsVo"/>
+        <where>
+            <if test="title != null  and title != ''"> and `title` = #{title}</if>
+            <if test="img != null  and img != ''"> and `img` = #{img}</if>
+            <if test="browseNum != null "> and `browse_num` = #{browseNum}</if>
+            <if test="content != null  and content != ''"> and `content` = #{content}</if>
+        </where>
+    </select>
+
+    <select id="selectCapitalNewsById" parameterType="Long" resultMap="CapitalNewsResult">
+        <include refid="selectCapitalNewsVo"/>
+        where `id` = #{id}
+    </select>
+
+    <insert id="insertCapitalNews" parameterType="com.pearadmin.system.domain.CapitalNews" useGeneratedKeys="true" keyProperty="id">
+        insert into `capital_news`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null and title != ''">`title`,</if>
+            <if test="img != null">`img`,</if>
+            <if test="createTime != null">`create_time`,</if>
+            <if test="browseNum != null">`browse_num`,</if>
+            <if test="content != null">`content`,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="img != null">#{img},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="browseNum != null">#{browseNum},</if>
+            <if test="content != null">#{content},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCapitalNews" parameterType="com.pearadmin.system.domain.CapitalNews">
+        update `capital_news`
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null and title != ''">`title` = #{title},</if>
+            <if test="img != null">`img` = #{img},</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="browseNum != null">`browse_num` = #{browseNum},</if>
+            <if test="content != null">`content` = #{content},</if>
+        </trim>
+        where `id` = #{id}
+    </update>
+
+    <delete id="deleteCapitalNewsById" parameterType="Long">
+        delete from `capital_news` where `id` = #{id}
+    </delete>
+
+    <delete id="deleteCapitalNewsByIds" parameterType="String">
+        delete from `capital_news` where `id` in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
