@@ -862,6 +862,7 @@ CREATE TABLE `capital_account` (
 -- Records of capital_account
 -- ----------------------------
 BEGIN;
+INSERT INTO `capital_account` VALUES ('111', '1309861917694623744', now(), 0, '');
 COMMIT;
 
 -- ----------------------------
