@@ -99,6 +99,16 @@ public class SysUserServiceImpl implements ISysUserService {
     }
 
     /**
+     * 根据 用户名 获取用户数据
+     * @param username 用户名
+     * @return SysUser
+     */
+    @Override
+    public SysUser getByUsername(String username) {
+        return sysUserMapper.selectByUsername(username);
+    }
+
+    /**
      * Describe: 根据 id 删除用户数据
      * Param: id
      * Return: Boolean

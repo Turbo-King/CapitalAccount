@@ -1,9 +1,16 @@
 package com.pearadmin.api.capital;
 
+import com.pearadmin.common.constant.AccountConstant;
+import com.pearadmin.common.exception.capital.account.AccountException;
+import com.pearadmin.common.exception.capital.account.AccountInsufficientBalanceException;
+import com.pearadmin.common.exception.capital.account.AccountNotFoundException;
+import com.pearadmin.common.exception.capital.account.MoneyErrorException;
 import com.pearadmin.common.web.base.BaseController;
 import com.pearadmin.common.web.domain.response.Result;
 import com.pearadmin.system.domain.CapitalAccount;
+import com.pearadmin.system.domain.SysUser;
 import com.pearadmin.system.service.ICapitalAccountService;
+import com.pearadmin.system.service.ISysUserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,22 +19,29 @@ import java.math.BigDecimal;
 /**
  * 账户Controller
  *
- * @author wzh
- * @date 2021-08-09
+ * @author alin
+ * @date   2021-08-11
  */
 @RestController
 @CrossOrigin //解决跨域问题
 @RequestMapping("/api/account")
 public class ApiCapitalAccountController extends BaseController {
 
+    // 账户服务
     private final ICapitalAccountService capitalAccountService;
 
-    public ApiCapitalAccountController(ICapitalAccountService capitalAccountService) {
+    // 用户服务
+    private final ISysUserService sysUserService;
+
+    public ApiCapitalAccountController(ICapitalAccountService capitalAccountService, ISysUserService sysUserService) {
         this.capitalAccountService = capitalAccountService;
+        this.sysUserService = sysUserService;
     }
 
     /**
      * 存款
+     *
+     * @param userId 用户编号
      * @param money 金额
      * @return Result
      */
@@ -36,28 +50,20 @@ public class ApiCapitalAccountController extends BaseController {
     public Result deposit(String userId, String money) {
         System.out.println("存款");
         try {
-            BigDecimal realMoney = new BigDecimal(money);
-
-            CapitalAccount account = capitalAccountService.selectCapitalAccountByUserId(userId);
-
-            // 添加金额
-            realMoney = account.getMoney().add(realMoney);
-            account.setMoney(realMoney);
+            boolean success = setMoney(userId, money, true);
 
             // TODO: 2021/8/10 交易记录 - 事务
 
-            return decide(capitalAccountService.updateCapitalAccount(account), "支付成功", "支付失败");
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            return failure("不存在该账户");
+            return pay(success);
         } catch (Exception e) {
-            e.printStackTrace();
-            return failure();
+            return failure(e.getMessage());
         }
     }
 
     /**
      * 取款
+     *
+     * @param userId 用户编号
      * @param money 金额
      * @return Result
      */
@@ -66,52 +72,72 @@ public class ApiCapitalAccountController extends BaseController {
     public Result withdrawal(String userId, String money) {
         System.out.println("取款");
         try {
-            BigDecimal realMoney = parseMoney(money);
-
-            CapitalAccount account = capitalAccountService.selectCapitalAccountByUserId(userId);
-
-            // 减少金额
-            realMoney = account.getMoney().subtract(realMoney);
-            if (realMoney.compareTo(new BigDecimal(0)) < 0) {
-                return failure("账户余额不足");
-            }
-
-            account.setMoney(realMoney);
+            boolean success = setMoney(userId, money, false);
 
             // TODO: 2021/8/10 交易记录 - 事务
 
-            return decide(capitalAccountService.updateCapitalAccount(account));
-        } catch (NullPointerException e) {
-            return failure("不存在该账户");
+            return pay(success);
         } catch (Exception e) {
-            return failure("金额错误");
+            return failure(e.getMessage());
+        }
+    }
+    
+    /**
+     * 转账
+     *
+     * @param curUserId 当前用户编号
+     * @param transferUsername 转账用户编号
+     * @param money 金额
+     * @return Result
+     */
+    @PostMapping("transfer")
+    @ApiOperation(value = "转账", tags = "1.金融系统")
+    public Result transfer(String curUserId, String transferUsername, String money) {
+        System.out.println("转账");
+        try {
+            SysUser user = sysUserService.getByUsername(transferUsername);
+            if (user == null) throw new AccountNotFoundException(AccountConstant.TRANSFER_ACCOUNT_NOT_FOUND);
+
+            boolean success = setMoney(curUserId, money, false)
+                           && setMoney(user.getUserId(), money, true);
+
+            // TODO: 2021/8/10 交易记录 - 事务
+
+            return pay(success);
+        } catch (Exception e) {
+            return failure(e.getMessage());
         }
     }
 
-//    /**
-//     * 处理基础业务(存款、取款、转账等操作)
-//     */
-//    @ResponseBody
-//    @PutMapping("business")
-//    public Result business(Integer type, String count, Double money, String byCount) {
-//        int success = 0;
-//        if (type == 0) {
-//            //todo 存款
-//        } else if (type == 1) {
-//            //todo 取款
-//        } else if (type == 2) {
-//            //todo 转账
-//        }
-//        return success == 1 ? success() : failure();
-//    }
+    /**
+     * 设置账户余额
+     * @param userId 用户编号
+     * @param money 金额
+     * @param add 是否增加
+     * @return boolean
+     */
+    private boolean setMoney(String userId, String money, boolean add) throws MoneyErrorException, AccountException {
+        // 验证数据有效性
+        if (money == null)  throw new MoneyErrorException(AccountConstant.MONEY_ERROR);
+        if (userId == null) throw new AccountException(AccountConstant.ACCOUNT_NOT_FOUND);
 
-//    /**
-//     * 修改保存账户
-//     */
-//    public int update(@RequestBody CapitalAccount capitalAccount) {
-//        SysUser sysUser = (SysUser) SecurityUtil.currentUserObj();
-//        return capitalAccountService.updateCapitalAccount(capitalAccount);
-//    }
+        BigDecimal realMoney = new BigDecimal(money);
+        CapitalAccount account = capitalAccountService.selectCapitalAccountByUserId(userId);
+
+        // 验证用户是否为空
+        if (account == null) throw new AccountException(AccountConstant.ACCOUNT_NOT_FOUND);
+
+        // 进行余额增加或减少
+        realMoney = add ? account.getMoney().add(realMoney) : account.getMoney().subtract(realMoney);
+
+        // 验证余额
+        if (realMoney.compareTo(new BigDecimal(0)) < 0) throw new AccountInsufficientBalanceException(AccountConstant.ACCOUNT_INSUFFICIENT_BALANCE);
+
+        // 设置余额
+        account.setMoney(realMoney);
+
+        return capitalAccountService.updateCapitalAccount(account) > 0;
+    }
 
     /**
      * 查询账户
@@ -127,9 +153,8 @@ public class ApiCapitalAccountController extends BaseController {
         return success(account);
     }
 
-    private BigDecimal parseMoney(String money) {
-        // TODO: 2021/8/11 throw 金额错误
-        return new BigDecimal(money);
+    private Result pay(Boolean b) {
+        return decide(b, AccountConstant.PAY_SUCCESS, AccountConstant.PAY_FAILURE);
     }
 
 }
