@@ -5,6 +5,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.pearadmin.common.web.base.BaseDomain;
 
+import java.math.BigDecimal;
+
 /**
  * 交易记录对象 capital_history
  *
@@ -28,12 +30,12 @@ public class CapitalHistory extends BaseDomain {
     /**
      * 交易类型（0-存款1-取款2-转账）
      */
-    private Long type;
+    private int type;
 
     /**
      * 交易金额
      */
-    private Double money;
+    private BigDecimal money;
 
     /**
      * 转账接受账户号
