@@ -1,13 +1,16 @@
 package com.pearadmin.api.common;
 
 import com.pearadmin.common.web.domain.response.Result;
+import com.wf.captcha.base.Captcha;
 import com.wf.captcha.utils.CaptchaUtil;
 import com.pearadmin.common.web.base.BaseController;
 import io.swagger.annotations.Api;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import java.awt.*;
 
 /**
  * Describe: 验证码控制器
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  * CreateTime: 2019/10/23
  * */
 @RestController
+@CrossOrigin //解决跨域问题
 @Api(tags = {"验证生成"})
 @RequestMapping("system/captcha")
 public class CaptchaController extends BaseController {
@@ -27,7 +31,10 @@ public class CaptchaController extends BaseController {
     @RequestMapping("generate")
     public void generate(HttpServletRequest request, HttpServletResponse response) throws Exception {
         CaptchaUtil.out(request, response);
+//        String captcha = (String)request.getSession().getAttribute("captcha");
+//        System.out.println("验证码："+captcha);
     }
+
 
     /**
      * 异步验证

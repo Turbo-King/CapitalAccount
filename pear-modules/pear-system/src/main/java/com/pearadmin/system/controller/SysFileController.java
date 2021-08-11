@@ -120,7 +120,7 @@ public class SysFileController extends BaseController {
      */
     @GetMapping("download/{id}")
     public void download(@PathVariable("id") String id) {
-        getFileService().download(id);
+//        getFileService().download(id);
     }
 
     /**

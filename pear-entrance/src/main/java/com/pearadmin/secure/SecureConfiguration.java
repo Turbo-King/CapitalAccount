@@ -16,6 +16,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import com.pearadmin.common.config.proprety.SecurityProperty;
 import com.pearadmin.secure.domain.SecureUserDetailsServiceImpl;
 import com.pearadmin.secure.domain.SecureUserTokenService;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import javax.annotation.Resource;
 
 /**

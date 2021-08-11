@@ -5,6 +5,7 @@ import com.pearadmin.system.service.ISysLogService;
 import io.swagger.annotations.Api;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
  * CreateTime: 2019/10/23
  * */
 @RestController
+@CrossOrigin //解决跨域问题
 @RequestMapping
 @Api(tags = {"项目入口"})
 public class EntranceController extends BaseController {

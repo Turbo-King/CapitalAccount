@@ -54,7 +54,7 @@ public class SecureAuthenticationSuccessHandler implements AuthenticationSuccess
         SysUser currentUser = (SysUser) authentication.getPrincipal();
         currentUser.setLastTime(LocalDateTime.now());
         request.getSession().setAttribute("currentUser", authentication.getPrincipal());
-        Result result = Result.success("登录成功");
+        Result result = Result.success("登录成功",SequenceUtil.makeStringId());
         ServletUtil.write(JSON.toJSONString(result));
     }
 }
