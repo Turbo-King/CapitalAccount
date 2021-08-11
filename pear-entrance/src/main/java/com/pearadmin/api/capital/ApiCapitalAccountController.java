@@ -126,16 +126,13 @@ public class ApiCapitalAccountController extends BaseController {
 
     /**
      * 查询账户
-     * @param id 用户编号
+     * @param userId 用户编号
      * @return 账户实体类
      */
     @GetMapping("detail")
-    public Result detail(String id) {
-        CapitalAccount account = capitalAccountService.selectCapitalAccountById(id);
-        if (account == null) {
-            return failure("账户不存在");
-        }
-        return success(account);
+    public Result detail(String userId) {
+        CapitalAccount account = capitalAccountService.selectCapitalAccountByUserId(userId);
+        return account == null ? failure(AccountConstant.ACCOUNT_NOT_FOUND) : success(account);
     }
 
     /**
