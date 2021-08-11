@@ -37,6 +37,18 @@ public class CapitalAccountServiceImpl implements ICapitalAccountService
     }
 
     /**
+     * 查询账户
+     *
+     * @param userId 用户编号
+     * @return 账户
+     */
+    @Override
+    public CapitalAccount selectCapitalAccountByUserId(String userId)
+    {
+        return capitalAccountMapper.selectCapitalAccountByUserId(userId);
+    }
+
+    /**
      * 查询账户列表
      * 
      * @param capitalAccount 账户

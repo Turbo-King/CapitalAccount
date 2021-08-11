@@ -21,6 +21,13 @@ public interface ICapitalAccountService
      */
     CapitalAccount selectCapitalAccountById(String accountId);
 
+    /**
+     * 查询账户
+     *
+     * @param userId 用户编号
+     * @return 账户
+     */
+    CapitalAccount selectCapitalAccountByUserId(String userId);
 
     /**
     * 查询账户

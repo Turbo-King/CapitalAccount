@@ -75,6 +75,7 @@ pear:
       - /admin/** # 开放静态资源
       - /component/** # 开放静态资源
       - /favicon.ico # 开放FAVICON
+      - /api/** # 开放 API 接口
       - /api/capital/news/** #开放新闻接口
       - /api/capital/account/** #开放账户接口
 

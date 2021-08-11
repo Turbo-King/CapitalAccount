@@ -5,19 +5,19 @@ import com.github.pagehelper.PageInfo;
 import com.pearadmin.common.config.proprety.SecurityProperty;
 import com.pearadmin.common.tools.sequence.SequenceUtil;
 import com.pearadmin.common.web.domain.request.PageDomain;
-import com.pearadmin.system.domain.SysRole;
-import com.pearadmin.system.domain.SysUser;
-import com.pearadmin.system.domain.SysUserRole;
+import com.pearadmin.system.domain.*;
 import com.pearadmin.system.mapper.SysPowerMapper;
 import com.pearadmin.system.mapper.SysRoleMapper;
 import com.pearadmin.system.mapper.SysUserMapper;
 import com.pearadmin.system.mapper.SysUserRoleMapper;
-import com.pearadmin.system.domain.SysMenu;
+import com.pearadmin.system.service.ICapitalAccountService;
 import com.pearadmin.system.service.ISysUserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +52,12 @@ public class SysUserServiceImpl implements ISysUserService {
      * */
     @Resource
     private SysPowerMapper sysPowerMapper;
+
+    /**
+     * 账户模块服务
+     */
+    @Resource
+    private ICapitalAccountService accountService;
 
     /**
      * 超级管理员配置
@@ -125,8 +131,9 @@ public class SysUserServiceImpl implements ISysUserService {
      * */
     @Override
     public boolean save(SysUser sysUser) {
+        boolean success = createAccount(sysUser.getUserId());
         int result = sysUserMapper.insert(sysUser);
-        return result > 0;
+        return result > 0 && success;
     }
 
     /**
@@ -203,6 +210,21 @@ public class SysUserServiceImpl implements ISysUserService {
             }
         }
         return list;
+    }
+
+    /**
+     * 创建账户
+     * @param id 用户编号
+     * @return boolean
+     */
+    private boolean createAccount(String id) {
+        CapitalAccount account = new CapitalAccount();
+        account.setAccountId(SequenceUtil.makeStringId());
+        account.setUserId(id);
+        account.setMoney(new BigDecimal(0));
+        account.setCreateTime(LocalDateTime.now());
+//        account.setRemark("");
+        return accountService.insertCapitalAccount(account) > 0;
     }
 
 }
