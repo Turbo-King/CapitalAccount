@@ -1,29 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pearadmin.system.mapper.CapitalHistoryMapper">
 
     <resultMap type="com.pearadmin.system.domain.CapitalHistory" id="CapitalHistoryResult">
-        <result property="id"    column="id"    />
-        <result property="accountId"    column="account_id"    />
-        <result property="type"    column="type"    />
-        <result property="createTime"    column="create_time"    />
-        <result property="byAccount"    column="by_account"    />
-        <result property="money"    column="money"    />
-        <result property="remark"    column="remark"    />
+        <result property="id" column="id"/>
+        <result property="accountId" column="account_id"/>
+        <result property="type" column="type"/>
+        <result property="createTime" column="create_time"/>
+        <result property="byAccount" column="by_account"/>
+        <result property="money" column="money"/>
+        <result property="remark" column="remark"/>
     </resultMap>
 
     <sql id="selectCapitalHistoryVo">
-        select`id`,`account_id`,`type`,`create_time`,`by_account`,`remark` from `capital_history`
+        select `id`, `account_id`, `type`, `create_time`, `by_account`,`money`, `remark`
+        from `capital_history`
     </sql>
 
-    <select id="selectCapitalHistoryList" parameterType="com.pearadmin.system.domain.CapitalHistory" resultMap="CapitalHistoryResult">
+    <select id="selectCapitalHistoryList" parameterType="com.pearadmin.system.domain.CapitalHistory"
+            resultMap="CapitalHistoryResult">
         <include refid="selectCapitalHistoryVo"/>
         <where>
-            <if test="accountId != null  and accountId != ''"> and `account_id` = #{accountId}</if>
-            <if test="type != null "> and `type` = #{type}</if>
-            <if test="byAccount != null  and byAccount != ''"> and `by_account` = #{byAccount}</if>
+            <if test="accountId != null  and accountId != ''">and `account_id` = #{accountId}</if>
+            <if test="type != null and type != '' ">and `type` = #{type}</if>
+            <if test="byAccount != null  and byAccount != ''">and `by_account` = #{byAccount}</if>
+        </where>
+    </select>
+
+    <select id="selectCapitalHistoryByAccountId" parameterType="com.pearadmin.system.domain.CapitalHistory"
+            resultMap="CapitalHistoryResult">
+        <include refid="selectCapitalHistoryVo"/>
+        <where>
+            and `account_id`=#{accountId}
         </where>
     </select>
 
@@ -32,7 +42,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where `id` = #{id}
     </select>
 
-    <insert id="insertCapitalHistory" parameterType="com.pearadmin.system.domain.CapitalHistory" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertCapitalHistory" parameterType="com.pearadmin.system.domain.CapitalHistory" useGeneratedKeys="true"
+            keyProperty="id">
         insert into `capital_history`
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="accountId != null and accountId != ''">`account_id`,</if>
@@ -41,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="byAccount != null">`by_account`,</if>
             <if test="money != null">`money`,</if>
             <if test="remark != null">`remark`,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="accountId != null and accountId != ''">#{accountId},</if>
             <if test="type != null">#{type},</if>
@@ -49,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="byAccount != null">#{byAccount},</if>
             <if test="money != null">#{money},</if>
             <if test="remark != null">#{remark},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateCapitalHistory" parameterType="com.pearadmin.system.domain.CapitalHistory">
@@ -66,7 +77,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteCapitalHistoryById" parameterType="Long">
-        delete from `capital_history` where `id` = #{id}
+        delete
+        from `capital_history`
+        where `id` = #{id}
     </delete>
 
     <delete id="deleteCapitalHistoryByIds" parameterType="String">

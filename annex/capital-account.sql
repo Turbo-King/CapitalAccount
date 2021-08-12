@@ -11,7 +11,7 @@
  Target Server Version : 80020
  File Encoding         : 65001
 
- Date: 10/08/2021 09:29:13
+ Date: 12/08/2021 11:05:56
 */
 
 SET NAMES utf8mb4;
@@ -862,7 +862,8 @@ CREATE TABLE `capital_account` (
 -- Records of capital_account
 -- ----------------------------
 BEGIN;
-INSERT INTO `capital_account` VALUES ('111', '1309861917694623744', now(), 0, '');
+INSERT INTO `capital_account` VALUES ('123211', '1309861917694623744', '2021-09-11 19:11:22', 3240.81, NULL);
+INSERT INTO `capital_account` VALUES ('1425414786232877056', '1425414785863778305', '2021-08-11 19:12:23', 3291.79, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -878,12 +879,25 @@ CREATE TABLE `capital_history` (
   `by_account` varchar(19) DEFAULT NULL COMMENT '转账接受账户号',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of capital_history
 -- ----------------------------
 BEGIN;
+INSERT INTO `capital_history` VALUES (1, '1309861917694623744', 0, 1000.00, '2021-08-12 08:45:34', NULL, NULL);
+INSERT INTO `capital_history` VALUES (2, '1309861917694623744', 1, 1000.00, '2021-08-12 08:45:48', NULL, NULL);
+INSERT INTO `capital_history` VALUES (3, '1425414785863778305', 0, 111.00, '2021-08-12 08:58:15', NULL, NULL);
+INSERT INTO `capital_history` VALUES (4, '1425414785863778305', 1, 11.00, '2021-08-12 09:43:21', NULL, NULL);
+INSERT INTO `capital_history` VALUES (5, '1425414785863778305', 1, 11.00, '2021-08-12 09:43:21', NULL, NULL);
+INSERT INTO `capital_history` VALUES (6, '1425414785863778305', 0, 2000.00, '2021-08-12 10:04:07', NULL, NULL);
+INSERT INTO `capital_history` VALUES (7, '1425414785863778305', 1, 100.20, '2021-08-12 10:23:11', NULL, NULL);
+INSERT INTO `capital_history` VALUES (8, '1425414785863778305', 1, 0.20, '2021-08-12 10:25:04', NULL, NULL);
+INSERT INTO `capital_history` VALUES (9, '1425414785863778305', 2, 11.00, '2021-08-12 10:32:09', '123211', NULL);
+INSERT INTO `capital_history` VALUES (10, '1309861917694623744', 2, 100.00, '2021-08-12 10:36:38', '1425414786232877056', NULL);
+INSERT INTO `capital_history` VALUES (11, '1309861917694623744', 2, 0.99, '2021-08-12 10:45:44', '1425414786232877056', NULL);
+INSERT INTO `capital_history` VALUES (12, '1309861917694623744', 2, 121.00, '2021-08-12 10:47:20', '1425414786232877056', NULL);
+INSERT INTO `capital_history` VALUES (13, '1425414785863778305', 2, 18.80, '2021-08-12 11:00:11', '123211', NULL);
 COMMIT;
 
 -- ----------------------------
@@ -1588,6 +1602,106 @@ INSERT INTO `sys_logging` VALUES ('1424904890194329600', 'Remember Me', '/', 'OT
 INSERT INTO `sys_logging` VALUES ('1424905008322707456', 'Remember Me', '/', 'OTHER', 'GET', 'admin', '/', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-10 09:26:42', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
 INSERT INTO `sys_logging` VALUES ('1424905244407496704', 'Remember Me', '/', 'OTHER', 'GET', 'admin', '/', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-10 09:27:38', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
 INSERT INTO `sys_logging` VALUES ('1424905535588663296', 'Remember Me', '/', 'OTHER', 'GET', 'admin', '/', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-10 09:28:48', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1424926025107636224', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-10 10:50:13', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1424926031222931456', '主页', '/index', 'ADD', 'GET', 'admin', '/index', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-10 10:50:14', '返回 Index 主页视图', NULL, '谷歌浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1424926119018102784', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-10 10:50:35', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1424926124529418240', '主页', '/index', 'ADD', 'GET', 'admin', '/index', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-10 10:50:37', '返回 Index 主页视图', NULL, '谷歌浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1424926217680715776', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-10 10:50:59', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1424926223066202112', '主页', '/index', 'ADD', 'GET', 'admin', '/index', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-10 10:51:00', '返回 Index 主页视图', NULL, '谷歌浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1424926313742860288', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-10 10:51:22', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1424926319010906112', '主页', '/index', 'ADD', 'GET', 'admin', '/index', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-10 10:51:23', '返回 Index 主页视图', NULL, '谷歌浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1424981189541756928', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-10 14:29:25', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1424981195464114176', '主页', '/index', 'ADD', 'GET', 'admin', '/index', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-10 14:29:27', '返回 Index 主页视图', NULL, '谷歌浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1424991222425976832', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-10 15:09:17', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1424991228251865088', '主页', '/index', 'ADD', 'GET', 'admin', '/index', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-10 15:09:19', '返回 Index 主页视图', NULL, '谷歌浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1425339513240027136', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 14:13:16', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425339519258853376', '主页', '/index', 'ADD', 'GET', 'admin', '/index', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 14:13:18', '返回 Index 主页视图', NULL, '谷歌浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1425348922452213760', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 14:50:39', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425348927648956416', '主页', '/index', 'ADD', 'GET', 'admin', '/index', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 14:50:41', '返回 Index 主页视图', NULL, '谷歌浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1425349775267463168', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 14:54:03', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425349781210791936', '主页', '/index', 'ADD', 'GET', 'admin', '/index', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 14:54:04', '返回 Index 主页视图', NULL, '谷歌浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1425349849758302208', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 14:54:21', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425349855068291072', '主页', '/index', 'ADD', 'GET', 'admin', '/index', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 14:54:22', '返回 Index 主页视图', NULL, '谷歌浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1425349967496609792', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 14:54:49', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425349972936622080', '主页', '/index', 'ADD', 'GET', 'admin', '/index', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 14:54:50', '返回 Index 主页视图', NULL, '谷歌浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1425350982220382208', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 14:58:51', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425350988486672384', '主页', '/index', 'ADD', 'GET', 'admin', '/index', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 14:58:52', '返回 Index 主页视图', NULL, '谷歌浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1425351057197760512', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 14:59:08', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425351062495166464', '主页', '/index', 'ADD', 'GET', 'admin', '/index', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 14:59:10', '返回 Index 主页视图', NULL, '谷歌浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1425351124814135296', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 14:59:25', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425351130283507712', '主页', '/index', 'ADD', 'GET', 'admin', '/index', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 14:59:26', '返回 Index 主页视图', NULL, '谷歌浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1425358696937947136', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 15:29:30', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425358702700920832', '主页', '/index', 'ADD', 'GET', 'admin', '/index', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 15:29:31', '返回 Index 主页视图', NULL, '谷歌浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1425359594191847424', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 15:33:04', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425360457157312512', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 15:36:30', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425360806324731904', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 15:37:53', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425360939615518720', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 15:38:25', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425361196780879872', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 15:39:26', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425361275575074816', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 15:39:45', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425362604011814912', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 15:45:01', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425363438896414720', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 15:48:20', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425363497448898560', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 15:48:34', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425363587269918720', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 15:48:56', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425363820020236288', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 15:49:51', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425363997196025856', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 15:50:34', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425364137487106048', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 15:51:07', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425364256475316224', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 15:51:35', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425365065363619840', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 15:54:48', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425368536854822912', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 16:08:36', '登录成功', NULL, '谷歌浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425368542311612416', '主页', '/index', 'ADD', 'GET', 'admin', '/index', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 16:08:37', '返回 Index 主页视图', NULL, '谷歌浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1425369199663906816', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 16:11:14', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425369278655234048', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 16:11:33', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425370718077452288', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 16:17:16', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425370857034743808', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 16:17:49', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425375754081796096', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 16:37:17', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425376033963507712', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 16:38:23', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425377071365881856', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 16:42:31', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425377660724314112', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 16:44:51', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425378308387766272', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 16:47:26', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425381636798676992', '登录', '/login', 'OTHER', 'POST', '未登录用户', '/login', '127.0.0.1', NULL, NULL, '0', NULL, '2021-08-11 17:00:39', '账户密码不正确', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425381673033269248', '登录', '/login', 'OTHER', 'POST', '未登录用户', '/login', '127.0.0.1', NULL, NULL, '0', NULL, '2021-08-11 17:00:48', '账户密码不正确', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425382220066979840', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 17:02:58', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425382323653705728', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 17:03:23', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425390977366884352', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 17:37:46', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425391561025257472', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 17:40:05', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425391803573469184', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 17:41:03', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425392633819168768', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 17:44:21', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425393655245438976', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 17:48:25', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425403887111634944', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 18:29:04', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425412864297926656', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 19:04:44', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425414460721332224', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 19:11:05', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425414466182316032', '主页', '/index', 'ADD', 'GET', 'admin', '/index', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 19:11:06', '返回 Index 主页视图', NULL, '你用啥浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1425414513242406912', '查询用户', '/system/user/data', 'QUERY', 'GET', 'admin', '/system/user/data', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 19:11:18', '查询用户', 'page=1&limit=10', '你用啥浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1425414785863778304', '新增用户', '/system/user/save', 'ADD', 'POST', 'admin', '/system/user/save', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 19:12:23', '新增用户', NULL, '你用啥浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1425414791517700096', '查询用户', '/system/user/data', 'QUERY', 'GET', 'admin', '/system/user/data', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 19:12:24', '查询用户', 'page=1&limit=10', '你用啥浏览器', 'Mac', 'OPERATE');
+INSERT INTO `sys_logging` VALUES ('1425414939954118656', '登录', '/login', 'OTHER', 'POST', 'turbo', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 19:12:59', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425415880434515968', '登录', '/login', 'OTHER', 'POST', 'turbo', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 19:16:44', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425417278647697408', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 19:22:17', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425417946737410048', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 19:24:56', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425422072896552960', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 19:41:20', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425423881602072576', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 19:48:31', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425432304779526144', '登录', '/login', 'OTHER', 'POST', 'turbo', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-11 20:21:59', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425614764205146112', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-12 08:27:01', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425619949245693952', '登录', '/login', 'OTHER', 'POST', 'turbo', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-12 08:47:37', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425620413613867008', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-12 08:49:28', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425621608759820288', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-12 08:54:13', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425622214262128640', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-12 08:56:37', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425622434651832320', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-12 08:57:30', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425622581280505856', '登录', '/login', 'OTHER', 'POST', 'turbo', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-12 08:58:05', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425624772552687616', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-12 09:06:47', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425624839317618688', '登录', '/login', 'OTHER', 'POST', 'turbo', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-12 09:07:03', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425625259209392128', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-12 09:08:43', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425625472644939776', '登录', '/login', 'OTHER', 'POST', 'turbo', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-12 09:09:34', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425625729478950912', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-12 09:10:35', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425626046257954816', '登录', '/login', 'OTHER', 'POST', 'turbo', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-12 09:11:51', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425626240164823040', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-12 09:12:37', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425626340211556352', '登录', '/login', 'OTHER', 'POST', 'turbo', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-12 09:13:01', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425646386208047104', '登录', '/login', 'OTHER', 'POST', 'admin', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-12 10:32:40', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425651235813326848', '登录', '/login', 'OTHER', 'POST', '未登录用户', '/login', '127.0.0.1', NULL, NULL, '0', NULL, '2021-08-12 10:51:57', '账户密码不正确', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425651280092594176', '登录', '/login', 'OTHER', 'POST', '未登录用户', '/login', '127.0.0.1', NULL, NULL, '0', NULL, '2021-08-12 10:52:07', '账户密码不正确', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425651356189851648', '登录', '/login', 'OTHER', 'POST', '未登录用户', '/login', '127.0.0.1', NULL, NULL, '0', NULL, '2021-08-12 10:52:25', '账户密码不正确', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425651611820097536', '登录', '/login', 'OTHER', 'POST', 'turbo', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-12 10:53:26', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
+INSERT INTO `sys_logging` VALUES ('1425653157303681024', '登录', '/login', 'OTHER', 'POST', 'turbo', '/login', '127.0.0.1', NULL, NULL, '1', NULL, '2021-08-12 10:59:35', '登录成功', NULL, '你用啥浏览器', 'Mac', 'LOGIN');
 COMMIT;
 
 -- ----------------------------
@@ -2091,7 +2205,7 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_user` VALUES ('1306230031168569344', 'feng', '$2a$10$jjf2h8Cx2lkFMKy3NY9pguADYAMewyPr2IJw8YAI5zSH2/0R/9Kra', NULL, '1', '风筝', 'feng@gmail.com', NULL, '0', '15553726531', '2000-02-09 00:00:00', NULL, NULL, NULL, '被岁月镂空，亦受其雕琢', '1', NULL, '1', NULL);
-INSERT INTO `sys_user` VALUES ('1309861917694623744', 'admin', '$2a$10$6T.NGloFO.mD/QOAUelMTOcjAH8N49h34TsXduDVlnNMrASIGBNz6', NULL, '1', '管理', 'Jmys1992@qq.com', '1378647938930049024', '0', '15553726531', '2020-09-26 22:26:32', NULL, NULL, NULL, '被岁月镂空，亦受其雕琢', '1', NULL, '1', '2021-08-10 09:28:48');
+INSERT INTO `sys_user` VALUES ('1309861917694623744', 'admin', '$2a$10$6T.NGloFO.mD/QOAUelMTOcjAH8N49h34TsXduDVlnNMrASIGBNz6', NULL, '1', '管理', 'Jmys1992@qq.com', '1378647938930049024', '0', '15553726531', '2020-09-26 22:26:32', NULL, NULL, NULL, '被岁月镂空，亦受其雕琢', '1', NULL, '1', '2021-08-12 10:32:40');
 INSERT INTO `sys_user` VALUES ('1310409555649232897', 'ruhua', '$2a$10$pkvLdCLdFp2sXZpmK34wveekbWvHinW2ldBnic4SqjiKO8jK4Etka', NULL, '1', '如花', 'ruhua@gmail.com', NULL, '0', '15553726531', '2020-09-28 10:42:39', NULL, NULL, NULL, NULL, '1', NULL, '1', NULL);
 INSERT INTO `sys_user` VALUES ('1349016976730619905', 'mwj', '$2a$10$mD0pnwOGjmOKihboidaTveUdrqcDYoluzfCOA0Ho87iwr9PKrDA6i', NULL, '1', '风筝', '', NULL, '1', '666666666', '2021-01-12 23:34:45', NULL, NULL, NULL, NULL, '1', NULL, '6', '2021-01-12 23:35:12');
 INSERT INTO `sys_user` VALUES ('1349021166525743105', 'xiana', '$2a$10$6VuyGmiEbIix/gPDU8oe3O7DZSxGVByjXCHQGtyEMoRAt74M/daee', NULL, '1', '夏娜', 'xiana@gmail.com', NULL, '0', '15553726531', '2021-01-12 23:51:24', NULL, NULL, NULL, NULL, '1', NULL, '1', NULL);
@@ -2099,6 +2213,7 @@ INSERT INTO `sys_user` VALUES ('1355966975355912193', 'sanman', '$2a$10$AD3QnQMR
 INSERT INTO `sys_user` VALUES ('1355967204012589057', 'langhua', '$2a$10$MNbf6dSvvncpoPsNFyMW6ObPwfj3jCKsZa7LvVAiXco1DWtgA46he', NULL, '1', '浪花', 'langhua@gmail.com', NULL, '0', '15553726531', '2021-02-01 03:52:29', NULL, NULL, NULL, NULL, '1', NULL, '1', NULL);
 INSERT INTO `sys_user` VALUES ('1355967579994193921', 'zidian', '$2a$10$c9OatFOMGnj37A6UJTwfGOKqCwCx50K8eZsjV5YoBRlpYHcz8WfyW', NULL, '1', '字典', 'zidian', NULL, '0', '15553726531', '2021-02-01 03:53:58', NULL, NULL, NULL, NULL, '1', NULL, '1', NULL);
 INSERT INTO `sys_user` VALUES ('1370973608502886401', 'duanlang', '$2a$10$XNcKlX3AnXR/Gh2g8aLX5OFtLD69Yjl1O8PDLmITH4WCQT.shsrWe', NULL, '1', '断浪', 'duanlang@gmail.com', NULL, '0', '15553726531', '2021-03-14 13:42:34', NULL, NULL, NULL, NULL, '1', NULL, '1', '2021-03-14 13:47:28');
+INSERT INTO `sys_user` VALUES ('1425414785863778305', 'turbo', '$2a$10$bHGtItGZ5t1n3KTnrPJcm.vB7TcPXFFHFdXUAOT.1yfyH8JOs0W92', NULL, '1', '魏志豪', '1362371739@qq.com', NULL, '0', '18770022324', '2021-08-11 19:12:23', NULL, NULL, NULL, '　　本人乐观开朗, 积极好学,健谈,有自信,具有设计的创新思想;对待工作认真负责,细心,能够吃苦耐劳,敢于挑战,并且能够很快融于集体。', '1', NULL, '1', '2021-08-12 10:59:35');
 COMMIT;
 
 -- ----------------------------
@@ -2201,6 +2316,7 @@ INSERT INTO `sys_user_role` VALUES ('1355967580686254081', '1355967579994193921'
 INSERT INTO `sys_user_role` VALUES ('1360858458609418240', '1309861917694623744', '1309851245195821056');
 INSERT INTO `sys_user_role` VALUES ('1360858458609418241', '1309861917694623744', '1313761100243664896');
 INSERT INTO `sys_user_role` VALUES ('1370973609278832640', '1370973608502886401', '1313761100243664896');
+INSERT INTO `sys_user_role` VALUES ('1425414786195128320', '1425414785863778305', '1309851245195821056');
 INSERT INTO `sys_user_role` VALUES ('442110794142978048', NULL, '1');
 INSERT INTO `sys_user_role` VALUES ('442110794142978049', NULL, '2');
 INSERT INTO `sys_user_role` VALUES ('442110794142978050', NULL, '3');

@@ -30,6 +30,11 @@
         select * from sys_user where username = #{username}
     </select>
 
+    <!--根据 Username 加载 SysUser -->
+    <select id="selectByRealName" parameterType="string" resultMap="SysUserMap">
+        select * from sys_user where real_name = #{realName}
+    </select>
+
     <!-- 根据 SysUser 条件查询用户列表 -->
     <select id="selectList" resultMap="SysUserMap">
         select * from sys_user

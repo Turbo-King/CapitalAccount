@@ -39,6 +39,14 @@ public interface ICapitalHistoryService
     List<CapitalHistory> selectCapitalHistoryList(CapitalHistory capitalHistory);
 
     /**
+     * 根据账户Id查询账户交易记录
+     *
+     * @param accountId 账户id
+     * @return 交易记录集合
+     */
+    List<CapitalHistory> selectCapitalHistoryByAccountId(String accountId);
+
+    /**
      * 新增交易记录
      * 
      * @param capitalHistory 交易记录

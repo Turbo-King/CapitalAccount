@@ -1,21 +1,22 @@
 package com.pearadmin.system.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+
 import java.util.List;
+
 import com.pearadmin.system.domain.CapitalHistory;
 
 /**
  * 交易记录Mapper接口
- * 
+ *
  * @author wzh
  * @date 2021-08-09
  */
 @Mapper
-public interface CapitalHistoryMapper 
-{
+public interface CapitalHistoryMapper {
     /**
      * 查询交易记录
-     * 
+     *
      * @param id 交易记录ID
      * @return 交易记录
      */
@@ -23,15 +24,23 @@ public interface CapitalHistoryMapper
 
     /**
      * 查询交易记录列表
-     * 
+     *
      * @param capitalHistory 交易记录
      * @return 交易记录集合
      */
     List<CapitalHistory> selectCapitalHistoryList(CapitalHistory capitalHistory);
 
     /**
+     * 查询交易记录列表
+     *
+     * @param accountId 交易记录
+     * @return 交易记录集合
+     */
+    List<CapitalHistory> selectCapitalHistoryByAccountId(String accountId);
+
+    /**
      * 新增交易记录
-     * 
+     *
      * @param capitalHistory 交易记录
      * @return 结果
      */
@@ -39,7 +48,7 @@ public interface CapitalHistoryMapper
 
     /**
      * 修改交易记录
-     * 
+     *
      * @param capitalHistory 交易记录
      * @return 结果
      */
@@ -47,7 +56,7 @@ public interface CapitalHistoryMapper
 
     /**
      * 删除交易记录
-     * 
+     *
      * @param id 交易记录ID
      * @return 结果
      */
@@ -55,7 +64,7 @@ public interface CapitalHistoryMapper
 
     /**
      * 批量删除交易记录
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */

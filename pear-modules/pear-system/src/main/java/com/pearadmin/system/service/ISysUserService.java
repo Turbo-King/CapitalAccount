@@ -43,6 +43,13 @@ public interface ISysUserService {
     SysUser getByUsername(String username);
 
     /**
+     * 根据 用户名 获取用户数据
+     * @param realName 用户名
+     * @return SysUser
+     */
+    SysUser getByRealName(String realName);
+
+    /**
      * Describe: 根据 id 删除用户数据
      * Param: id
      * Return: 操作结果

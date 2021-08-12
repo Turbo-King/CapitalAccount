@@ -49,6 +49,18 @@ public class CapitalHistoryServiceImpl implements ICapitalHistoryService
     }
 
     /**
+     * 查询交易记录列表
+     *
+     * @param accountId 账户id
+     * @return 交易记录
+     */
+    @Override
+    public List<CapitalHistory> selectCapitalHistoryByAccountId(String accountId)
+    {
+        return capitalHistoryMapper.selectCapitalHistoryByAccountId(accountId);
+    }
+
+    /**
      * 查询交易记录
      * @param capitalHistory 交易记录
      * @param pageDomain

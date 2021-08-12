@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
  * 账户Controller
  *
  * @author alin
- * @date   2021-08-11
+ * @date 2021-08-11
  */
 @RestController
 @CrossOrigin //解决跨域问题
@@ -56,7 +56,7 @@ public class ApiCapitalAccountController extends BaseController {
      * 存款
      *
      * @param userId 用户编号
-     * @param money 金额
+     * @param money  金额
      * @return Result
      */
     @PostMapping("deposit")
@@ -78,7 +78,7 @@ public class ApiCapitalAccountController extends BaseController {
      * 取款
      *
      * @param userId 用户编号
-     * @param money 金额
+     * @param money  金额
      * @return Result
      */
     @PostMapping("withdrawal")
@@ -95,24 +95,29 @@ public class ApiCapitalAccountController extends BaseController {
             return failure(e.getMessage());
         }
     }
-    
+
     /**
      * 转账
      *
-     * @param curUserId 当前用户编号
+     * @param curUserId        当前用户编号
      * @param transferUsername 转账用户编号
-     * @param money 金额
+     * @param money            金额
      * @return Result
      */
     @PostMapping("transfer")
     @ApiOperation(value = "转账", tags = "1.金融系统")
-    public Result transfer(String curUserId, String transferUsername, String money) {
+    public Result transfer(String curUserId, String account, String transferUsername, String money) {
         try {
-            SysUser user = sysUserService.getByUsername(transferUsername);
-            if (user == null) throw new AccountNotFoundException(AccountConstant.TRANSFER_ACCOUNT_NOT_FOUND);
+            SysUser user = sysUserService.getByRealName(transferUsername);
+            CapitalAccount capitalAccount = capitalAccountService.selectCapitalAccountById(account);
+            if (user == null && capitalAccount == null)
+                throw new AccountNotFoundException(AccountConstant.TRANSFER_ACCOUNT_NOT_FOUND);
+
+            if (!capitalAccount.getUserId().equals(user.getUserId()))
+                throw new AccountException(AccountConstant.TRANSFER_ACCOUNT_REAL_NAME_NOT_FOUND);
 
             boolean success = setMoney(curUserId, money, false)
-                           && setMoney(user.getUserId(), money, true);
+                    && setMoney(user.getUserId(), money, true);
 
             // 添加交易记录
             String byAccountId = capitalAccountService.selectCapitalAccountByUserId(user.getUserId()).getAccountId();
@@ -126,6 +131,7 @@ public class ApiCapitalAccountController extends BaseController {
 
     /**
      * 查询账户
+     *
      * @param userId 用户编号
      * @return 账户实体类
      */
@@ -137,14 +143,15 @@ public class ApiCapitalAccountController extends BaseController {
 
     /**
      * 设置账户余额
+     *
      * @param userId 用户编号
-     * @param money 金额
-     * @param add 是否增加
+     * @param money  金额
+     * @param add    是否增加
      * @return boolean
      */
     private boolean setMoney(String userId, String money, boolean add) throws MoneyErrorException, AccountException {
         // 验证数据有效性
-        if (money == null)  throw new MoneyErrorException(AccountConstant.MONEY_ERROR);
+        if (money == null) throw new MoneyErrorException(AccountConstant.MONEY_ERROR);
         if (userId == null) throw new AccountException(AccountConstant.ACCOUNT_NOT_FOUND);
 
         BigDecimal realMoney = new BigDecimal(money);
@@ -157,7 +164,8 @@ public class ApiCapitalAccountController extends BaseController {
         realMoney = add ? account.getMoney().add(realMoney) : account.getMoney().subtract(realMoney);
 
         // 验证余额
-        if (realMoney.compareTo(new BigDecimal(0)) < 0) throw new AccountInsufficientBalanceException(AccountConstant.ACCOUNT_INSUFFICIENT_BALANCE);
+        if (realMoney.compareTo(new BigDecimal(0)) < 0)
+            throw new AccountInsufficientBalanceException(AccountConstant.ACCOUNT_INSUFFICIENT_BALANCE);
 
         // 设置余额
         account.setMoney(realMoney);
@@ -172,9 +180,9 @@ public class ApiCapitalAccountController extends BaseController {
     /**
      * 插入交易记录
      *
-     * @param accountId 账户编号
-     * @param type 交易类型
-     * @param money 交易金额
+     * @param accountId   账户编号
+     * @param type        交易类型
+     * @param money       交易金额
      * @param byAccountId 转账接受账户编号
      * @return boolean
      */

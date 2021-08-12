@@ -109,6 +109,16 @@ public class SysUserServiceImpl implements ISysUserService {
     }
 
     /**
+     * 根据 用户名 获取用户数据
+     * @param realName 用户名
+     * @return SysUser
+     */
+    @Override
+    public SysUser getByRealName(String realName) {
+        return sysUserMapper.selectByRealName(realName);
+    }
+
+    /**
      * Describe: 根据 id 删除用户数据
      * Param: id
      * Return: Boolean

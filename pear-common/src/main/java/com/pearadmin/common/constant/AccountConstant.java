@@ -22,4 +22,6 @@ public class AccountConstant {
 
     public static String TRANSFER_ACCOUNT_NOT_FOUND = "转账账户不存在";
 
+    public static String TRANSFER_ACCOUNT_REAL_NAME_NOT_FOUND = "转账账户用户名不匹配";
+
 }

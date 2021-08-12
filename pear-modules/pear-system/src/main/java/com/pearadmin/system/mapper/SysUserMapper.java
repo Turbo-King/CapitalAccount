@@ -20,6 +20,12 @@ public interface SysUserMapper {
      * Return: SysUser
      * */
     SysUser selectByUsername(@Param("username") String username);
+    /**
+     * Describe: 根据 username 查询用户
+     * Param: username
+     * Return: SysUser
+     * */
+    SysUser selectByRealName(@Param("realName") String realName);
 
     /**
      * Describe: 根据 Id 查询用户
