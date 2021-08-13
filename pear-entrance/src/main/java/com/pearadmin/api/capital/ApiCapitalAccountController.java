@@ -6,6 +6,7 @@ import com.pearadmin.common.exception.capital.account.AccountException;
 import com.pearadmin.common.exception.capital.account.AccountInsufficientBalanceException;
 import com.pearadmin.common.exception.capital.account.AccountNotFoundException;
 import com.pearadmin.common.exception.capital.account.MoneyErrorException;
+import com.pearadmin.common.tools.capital.Sendmail;
 import com.pearadmin.common.tools.sequence.SequenceUtil;
 import com.pearadmin.common.web.base.BaseController;
 import com.pearadmin.common.web.domain.response.Result;
@@ -65,6 +66,9 @@ public class ApiCapitalAccountController extends BaseController {
         try {
             boolean success = setMoney(userId, money, true);
 
+            SysUser user = sysUserService.getById(userId);
+            //发送邮件提醒
+            Sendmail.sendQQMail(user.getEmail(), 0, money);
             // 添加交易记录
             insertCapitalHistory(userId, DealType.DEPOSIT, new BigDecimal(money), null);
 
@@ -87,6 +91,9 @@ public class ApiCapitalAccountController extends BaseController {
         try {
             boolean success = setMoney(userId, money, false);
 
+            SysUser user = sysUserService.getById(userId);
+            //发送邮件提醒
+            Sendmail.sendQQMail(user.getEmail(), 1, money);
             // 添加交易记录
             insertCapitalHistory(userId, DealType.WITHDRAWAL, new BigDecimal(money), null);
 
@@ -119,6 +126,12 @@ public class ApiCapitalAccountController extends BaseController {
             boolean success = setMoney(curUserId, money, false)
                     && setMoney(user.getUserId(), money, true);
 
+            //发送邮件提醒
+            //转账人
+            SysUser curUser = sysUserService.getById(curUserId);
+            Sendmail.sendQQMail(curUser.getEmail(), 3, money);
+            //接受人
+            Sendmail.sendQQMail(user.getEmail(), 4, money);
             // 添加交易记录
             String byAccountId = capitalAccountService.selectCapitalAccountByUserId(user.getUserId()).getAccountId();
             insertCapitalHistory(curUserId, DealType.TRANSFER, new BigDecimal(money), byAccountId);
