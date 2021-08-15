@@ -17,6 +17,7 @@ import com.pearadmin.system.service.ICapitalAccountService;
 import com.pearadmin.system.service.ICapitalHistoryService;
 import com.pearadmin.system.service.ISysUserService;
 import io.swagger.annotations.ApiOperation;
+import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -67,8 +68,16 @@ public class ApiCapitalAccountController extends BaseController {
             boolean success = setMoney(userId, money, true);
 
             SysUser user = sysUserService.getById(userId);
-            //发送邮件提醒
-            Sendmail.sendQQMail(user.getEmail(), 0, money);
+            //开启线程发送邮件
+            new Thread(new Runnable() {
+                @SneakyThrows
+                @Override
+                public void run() {
+                    //发送邮件提醒
+                    Sendmail.sendQQMail(user.getEmail(), 0, money);
+                }
+            });
+
             // 添加交易记录
             insertCapitalHistory(userId, DealType.DEPOSIT, new BigDecimal(money), null);
 
@@ -92,8 +101,16 @@ public class ApiCapitalAccountController extends BaseController {
             boolean success = setMoney(userId, money, false);
 
             SysUser user = sysUserService.getById(userId);
-            //发送邮件提醒
-            Sendmail.sendQQMail(user.getEmail(), 1, money);
+            //开启线程发送邮件
+            new Thread(new Runnable() {
+                @SneakyThrows
+                @Override
+                public void run() {
+                    //发送邮件提醒
+                    Sendmail.sendQQMail(user.getEmail(), 1, money);
+                }
+            });
+
             // 添加交易记录
             insertCapitalHistory(userId, DealType.WITHDRAWAL, new BigDecimal(money), null);
 
@@ -126,12 +143,28 @@ public class ApiCapitalAccountController extends BaseController {
             boolean success = setMoney(curUserId, money, false)
                     && setMoney(user.getUserId(), money, true);
 
-            //发送邮件提醒
-            //转账人
-            SysUser curUser = sysUserService.getById(curUserId);
-            Sendmail.sendQQMail(curUser.getEmail(), 3, money);
-            //接受人
-            Sendmail.sendQQMail(user.getEmail(), 4, money);
+            //开启线程发送邮件
+            new Thread(new Runnable() {
+                @SneakyThrows
+                @Override
+                public void run() {
+                    //发送邮件提醒
+                    //转账人
+                    SysUser curUser = sysUserService.getById(curUserId);
+                    Sendmail.sendQQMail(curUser.getEmail(), 2, money);
+                }
+            });
+
+            //开启线程发送邮件
+            new Thread(new Runnable() {
+                @SneakyThrows
+                @Override
+                public void run() {
+                    //接受人
+                    Sendmail.sendQQMail(user.getEmail(), 3, money);
+                }
+            });
+
             // 添加交易记录
             String byAccountId = capitalAccountService.selectCapitalAccountByUserId(user.getUserId()).getAccountId();
             insertCapitalHistory(curUserId, DealType.TRANSFER, new BigDecimal(money), byAccountId);

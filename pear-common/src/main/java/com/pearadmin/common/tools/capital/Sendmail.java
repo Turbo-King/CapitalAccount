@@ -78,16 +78,16 @@ public class Sendmail {
         if (type == 0) {
             //存款
             //邮件内容
-            mimeMessage.setContent("账户存入：" + content + "元", "text/html;charset=UTF-8");
+            mimeMessage.setContent("账户存入金额：" + content + "元", "text/html;charset=UTF-8");
         } else if (type == 1) {
             //取款
             //邮件内容
-            mimeMessage.setContent("账户取出：" + content + "元", "text/html;charset=UTF-8");
-        } else if (type == 3) {
+            mimeMessage.setContent("账户取出金额：" + content + "元", "text/html;charset=UTF-8");
+        } else if (type == 2) {
             //转账
             //邮件内容
             mimeMessage.setContent("账户转账：" + content + "元", "text/html;charset=UTF-8");
-        } else if (type == 4) {
+        } else if (type == 3) {
             //接受转账
             //邮件内容
             mimeMessage.setContent("账户接受转账：" + content + "元", "text/html;charset=UTF-8");
